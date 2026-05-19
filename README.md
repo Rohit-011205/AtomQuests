@@ -50,6 +50,20 @@ Use these pre-configured accounts to test the multi-tier Role-Based Access Contr
 
 ---
 
+## Screenshots
+  <img width="1919" height="913" alt="image" src="https://github.com/user-attachments/assets/4eb7f1e4-b86b-4bff-a64e-fdba72ec5b2a" />
+   <img width="1919" height="903" alt="image" src="https://github.com/user-attachments/assets/cb2bab98-a290-4bc7-9a12-941a175ccab2" />
+<img width="1919" height="913" alt="image" src="https://github.com/user-attachments/assets/5829d505-9b89-4f50-9391-cc159d65d648" />
+<img width="1919" height="901" alt="image" src="https://github.com/user-attachments/assets/b5be9f46-c6ab-4dcc-9e0a-d200cdbb0fd4" />
+
+<img width="1919" height="942" alt="image" src="https://github.com/user-attachments/assets/9a2bd84c-950c-42f0-b08d-015e193c55a7" />
+<img width="1919" height="935" alt="image" src="https://github.com/user-attachments/assets/81331852-9d53-4d91-8038-0191479ebce0" />
+<img width="1919" height="916" alt="image" src="https://github.com/user-attachments/assets/a57b52f4-fcba-48b7-b7bc-47ccb906ba50" />
+<img width="1919" height="913" alt="image" src="https://github.com/user-attachments/assets/33cd986c-d534-4367-90c7-2d79a51d75d0" />
+<img width="1912" height="966" alt="image" src="https://github.com/user-attachments/assets/efc0671f-903c-4312-9fb7-71de69c519a9" />
+
+
+---
 ## 🧠 Data Models
 
 ### User Schema
