@@ -34,16 +34,13 @@ export default function LoginPage() {
 
           {/* Logo Branding Section */}
           <div className="flex flex-col items-center mb-10">
-            <div className=" bg-white rounded-2xl flex items-center justify-centermb-4 overflow-hidden">
-              {/* Fixed: logo2 is now passed as a variable */}
+            <div className="bg-white rounded-2xl flex items-center justify-center mb-4 overflow-hidden">
               <img
                 src={logo2}
                 className="h-32 w-auto object-contain"
                 alt="Achievo Logo"
               />
             </div>
-            {/* Added Clean Brand Name */}
-
           </div>
 
           <div className="text-center mb-10">
@@ -81,30 +78,22 @@ export default function LoginPage() {
 
             <button
               type="submit"
-              className="w-full py-4 rounded-2xl font-semibold text-white transition-all duration-500 ease-in-out transform
-     Start with your Slate base 
-    bg-slate-900 
-    
-  Emerald to Teal gradient 
-    /* This mimics the logo's hues but keeps them grounded */
-    hover:bg-gradient-to-r hover:from-[#10B981] hover:to-[#06B6D4]
-    
-    /* Hover Effects */
-    hover:-translate-y-1 
-    hover:shadow-lg hover:shadow-emerald-500/30
-    
-    /* Press Effect */
-    active:scale-[0.98]"
+              className="w-full py-4 rounded-2xl font-semibold text-white bg-slate-900 transition-all duration-500 ease-in-out transform hover:bg-gradient-to-r hover:from-[#10B981] hover:to-[#06B6D4] hover:-translate-y-1 hover:shadow-lg hover:shadow-emerald-500/30 active:scale-[0.98]"
             >
               Sign In to Portal
             </button>
           </form>
 
           <div className="mt-10 flex flex-col items-center gap-6">
-
             <div className="w-full h-[1px] bg-gradient-to-r from-transparent via-slate-200 to-transparent"></div>
             <p className="text-xs text-slate-400">
-              Need access? <span onClick={() => window.location.href = "/signup"} className="text-blue-600 font-bold cursor-pointer hover:underline">Create New Account</span>
+              Need access?{" "}
+              <span 
+                onClick={() => navigate("/signup")} 
+                className="text-blue-600 font-bold cursor-pointer hover:underline"
+              >
+                Create New Account
+              </span>
             </p>
           </div>
         </div>
