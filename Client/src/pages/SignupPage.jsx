@@ -1,193 +1,113 @@
-// import React, { useState } from "react";
-// import { axiosInstance } from "../services/api.js";
-
-// export default function SignupPage() {
-//     const [form, setForm] = useState({ name: "", email: "", password: "", role: "employee" });
-
-//     const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
-
-//     const handleSignup = async (e) => {
-//         e.preventDefault();
-//         try {
-//             await axiosInstance.post("/auth/register", form);
-//             alert("Signup successful! Please login.");
-//             window.location.href = "/login";
-//         } catch (err) {
-//             alert(err.response?.data?.message || "Signup failed");
-//         }
-//     };
-
-//     return (
-//         <div className="flex items-center justify-center min-h-screen bg-red-100 ">
-//             <form onSubmit={handleSignup} className="bg-purple-200 p-6 rounded shadow-md w-96 space-y-4">
-//                 <h2 className="text-2xl font-bold text-center">Signup</h2>
-//                 <input name="name" value={form.name} onChange={handleChange} placeholder="Name"
-//                     className="w-full p-2 border rounded" />
-//                 <input name="email" value={form.email} onChange={handleChange} placeholder="Email"
-//                     className="w-full p-2 border rounded" />
-//                 <input type="password" name="password" value={form.password} onChange={handleChange} placeholder="Password"
-//                     className="w-full p-2 border rounded" />
-//                 <select name="role" value={form.role} onChange={handleChange} className="w-full p-2 border rounded">
-//                     <option value="employee">Employee</option>
-//                     <option value="manager">Manager</option>
-//                     <option value="admin">Admin</option>
-//                 </select>
-//                 <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600">
-//                     Signup
-//                 </button>
-//             </form>
-//         </div>
-//     );
-// }
-
-
-
-
 import React, { useState } from "react";
-import { motion } from "framer-motion";
 import { axiosInstance } from "../services/api.js";
-import { User, Mail, Lock, ShieldCheck, Zap } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import logo2 from "./logo2.png";
 
 export default function SignupPage() {
-    const [form, setForm] = useState({ name: "", email: "", password: "", role: "employee" });
-    const [loading, setLoading] = useState(false);
-    const navigate = useNavigate(); // Hook initialized correctly
+  const [form, setForm] = useState({ name: "", email: "", password: "", role: "employee", department: "" });
 
-    const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
-    const handleSignup = async (e) => {
-        e.preventDefault();
-        setLoading(true);
-        try {
-            await axiosInstance.post("/auth/register", form);
-            alert("Registration successful. Proceed to login.");
-            
-            // ✅ FIX: Use programmatic navigation instead of full page reload
-            navigate("/login"); 
-        } catch (err) {
-            alert(err.response?.data?.message || "Signup failed");
-        } finally {
-            setLoading(false);
-        }
-    };
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    try {
+      await axiosInstance.post("/auth/register", form);
+      alert("Signup successful!");
+      window.location.href = "/login";
+    } catch (err) {
+      alert(err.response?.data?.message || "Signup failed");
+    }
+  };
 
-    return (
-        <div className="min-h-screen w-full flex items-center justify-center bg-[#0b0f1a] relative overflow-hidden p-4">
-            {/* Ambient Background Glows for "Luxury" feel */}
-            <div className="fixed top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-blue-900/20 rounded-full blur-[120px] pointer-events-none" />
-            <div className="fixed bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-indigo-900/10 rounded-full blur-[120px] pointer-events-none" />
+  return (
+    // h-screen and overflow-hidden prevent the page from scrolling
+    <div className="flex h-screen w-full bg-[#F8FAFC] font-sans selection:bg-blue-100 overflow-hidden">
 
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="relative z-10 w-full max-w-[440px]"
-            >
-                <div className="bg-[#161b2c]/60 backdrop-blur-2xl border border-white/10 rounded-[2rem] shadow-2xl p-8 md:p-12">
-                    <header className="text-center mb-10">
-                        <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-blue-600/20 text-blue-400 mb-4">
-                            <Zap size={28} fill="currentColor" className="opacity-80" />
-                        </div>
-                        <h1 className="text-3xl font-bold tracking-tight text-white uppercase italic">
-                            ATOMQUEST <span className="text-blue-500">1.0</span>
-                        </h1>
-                        <p className="text-slate-400 text-sm mt-2 font-light tracking-wide">
-                            Precision in Performance Tracking
-                        </p>
-                    </header>
+      {/* Left Section: Compact Glassmorphic Signup */}
+      <div className="flex flex-col justify-center items-center w-full lg:w-[40%] p-4 z-10">
+        <div className="w-full max-w-md bg-white/80 backdrop-blur-xl border border-white/40 p-8 rounded-[2rem] shadow-[0_20px_50px_rgba(0,0,0,0.04)]">
 
-                    <form onSubmit={handleSignup} className="space-y-4">
-                        {/* Name Field */}
-                        <div className="relative group">
-                            <User className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 w-5 h-5 group-focus-within:text-blue-400 transition-colors" />
-                            <input
-                                name="name"
-                                value={form.name}
-                                onChange={handleChange}
-                                placeholder="Full Name"
-                                className="w-full bg-slate-950/40 border border-slate-800 rounded-xl py-4 pl-12 pr-4 text-white placeholder-slate-600 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all"
-                                required
-                            />
-                        </div>
+          {/* Logo Branding - Reduced margin */}
+          <div className="flex flex-col items-center mb-6">
+            <div className="bg-white rounded-xl flex items-center justify-center mb-2 overflow-hidden">
+              <img src={logo2} className="h-32 w-auto object-contain" alt="Achievo Logo" />
+            </div>
+          </div>
 
-                        {/* Email Field */}
-                        <div className="relative group">
-                            <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 w-5 h-5 group-focus-within:text-blue-400 transition-colors" />
-                            <input
-                                name="email"
-                                type="email"
-                                value={form.email}
-                                onChange={handleChange}
-                                placeholder="Corporate Email"
-                                className="w-full bg-slate-950/40 border border-slate-800 rounded-xl py-4 pl-12 pr-4 text-white placeholder-slate-600 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all"
-                                required
-                            />
-                        </div>
+          <div className="text-center mb-6">
+            <h1 className="text-2xl font-light text-slate-900 tracking-tight">Create Account</h1>
+          </div>
 
-                        {/* Password Field */}
-                        <div className="relative group">
-                            <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 w-5 h-5 group-focus-within:text-blue-400 transition-colors" />
-                            <input
-                                name="password"
-                                type="password"
-                                value={form.password}
-                                onChange={handleChange}
-                                placeholder="Secure Password"
-                                className="w-full bg-slate-950/40 border border-slate-800 rounded-xl py-4 pl-12 pr-4 text-white placeholder-slate-600 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all"
-                                required
-                            />
-                        </div>
+          <form onSubmit={handleSignup} className="space-y-3">
+            <div className="group">
+              <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1 px-1">Full Name</label>
+              <input name="name" value={form.name} onChange={handleChange} placeholder="John Doe"
+                className="w-full px-4 py-3 bg-white border border-slate-100 rounded-xl focus:ring-4 focus:ring-blue-50/50 focus:border-blue-400 transition-all outline-none text-sm" />
+            </div>
 
-                        {/* Role Selector - Required Personas  */}
-                        <div className="relative group">
-                            <ShieldCheck className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 w-5 h-5 group-focus-within:text-blue-400 transition-colors" />
-                            <select
-                                name="role"
-                                value={form.role}
-                                onChange={handleChange}
-                                className="w-full bg-slate-950/40 border border-slate-800 rounded-xl py-4 pl-12 pr-4 text-white appearance-none focus:outline-none focus:border-blue-500/50 transition-all cursor-pointer"
-                            >
-                                <option value="employee" className="bg-[#161b2c]">Employee Role</option>
-                                <option value="manager" className="bg-[#161b2c]">Manager (L1)</option>
-                                <option value="admin" className="bg-[#161b2c]">Admin / HR</option>
-                            </select>
-                        </div>
+            <div className="group">
+              <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1 px-1">Email</label>
+              <input name="email" value={form.email} onChange={handleChange} placeholder="name@company.com"
+                className="w-full px-4 py-3 bg-white border border-slate-100 rounded-xl focus:ring-4 focus:ring-blue-50/50 focus:border-blue-400 transition-all outline-none text-sm" />
+            </div>
 
-                        <motion.button
-                            whileHover={{ y: -2 }}
-                            whileTap={{ scale: 0.98 }}
-                            type="submit"
-                            disabled={loading}
-                            className="w-full mt-6 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold py-4 rounded-xl shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 transition-all flex items-center justify-center"
-                        >
-                            {loading ? (
-                                <div className="h-6 w-6 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                            ) : (
-                                "INITIALIZE ACCOUNT"
-                            )}
-                        </motion.button>
-                    </form>
+            <div className="group">
+              <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1 px-1">Role</label>
+              <select name="role" value={form.role} onChange={handleChange}
+                className="w-full px-4 py-3 bg-white border border-slate-100 rounded-xl focus:ring-4 focus:ring-blue-50/50 focus:border-blue-400 outline-none text-sm appearance-none cursor-pointer">
+                <option value="employee">Employee</option>
+                <option value="manager">Manager</option>
+                <option value="admin">Admin</option>
+              </select>
+            </div>
 
-                    {/* ✅ UI FIX: Moved Login Link inside the glassmorphism container */}
-                    <div className="mt-6 text-center text-sm">
-                        <span className="text-slate-400">Already have an account? </span>
-                        <button
-                            type="button"
-                            className="text-blue-400 hover:text-blue-300 font-medium transition-colors underline bg-transparent border-none p-0 cursor-pointer"
-                            onClick={() => navigate('/login')}
-                        >
-                            Login here
-                        </button>
-                    </div>
+            <div className="group">
+              <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1 px-1">Password</label>
+              <input type="password" name="password" value={form.password} onChange={handleChange} placeholder="••••••••"
+                className="w-full px-4 py-3 bg-white border border-slate-100 rounded-xl focus:ring-4 focus:ring-blue-50/50 focus:border-blue-400 transition-all outline-none text-sm" />
+            </div>
 
-                    <footer className="mt-8 text-center border-t border-white/5 pt-6">
-                        <p className="text-[10px] tracking-[0.3em] text-slate-500 font-bold uppercase">
-                            Secured by <span className="text-slate-300">DOGESH AI</span>
-                        </p>
-                    </footer>
-                </div>
-            </motion.div>
+            <div className="department">
+              <label className="block text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1 px-1">Department</label>
+              <select
+                name="department"
+                value={form.department}
+                onChange={handleChange}
+                className="w-full px-4 py-3 bg-white border border-slate-100 rounded-xl focus:ring-4 focus:ring-blue-50/50 focus:border-blue-400 outline-none text-sm appearance-none cursor-pointer"
+              >
+                <option value="">Select Department</option>
+                <option value="Sales">Sales</option>
+                <option value="Marketing">Marketing</option>
+                <option value="Engineering">Engineering</option>
+                <option value="HR">HR</option>
+                <option value="Finance">Finance</option>
+              </select>
+
+            </div>
+
+            <button type="submit" className="w-full bg-slate-900 text-white py-3.5 rounded-xl font-semibold hover:bg-blue-600 transition-all shadow-lg active:scale-[0.98] mt-4 text-sm">
+              Create Account
+            </button>
+          </form>
+
+          <div className="mt-6 pt-4 border-t border-slate-100 flex justify-center">
+            <p className="text-[11px] text-slate-400">
+              Already a member? <span className="text-blue-600 font-bold cursor-pointer hover:underline" onClick={() => window.location.href = "/login"}>Log In</span>
+            </p>
+          </div>
         </div>
-    );
+      </div>
+
+      {/* Right Section: Fixed Height Experience */}
+      <div className="hidden lg:flex flex-1 p-6 h-full">
+        <div className="relative w-full h-full rounded-[2.5rem] overflow-hidden shadow-2xl">
+          <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&q=80&w=1200"
+            className="absolute inset-0 w-full h-full object-cover" alt="Workspace" />
+          <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-[1px] flex flex-col justify-end p-12 text-white">
+            <h2 className="text-5xl font-light leading-tight mb-4">Precision <br /><span className="font-bold italic">Engineering.</span></h2>
+            <div className="h-1 w-20 bg-blue-500 rounded-full"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }

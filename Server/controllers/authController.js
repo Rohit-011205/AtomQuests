@@ -110,3 +110,37 @@ export const getMe = async (req, res) => {
     res.status(500).json({ message: "Failed to fetch user data", error: error.message });
   }
 };
+
+export const getAllUsers = async (req, res) => {
+    try {
+        const users = await User.find().select("-password");
+        res.json(users);
+    } catch (error) {
+        res.status(500).json({ message: "Failed to fetch users", error: error.message });
+    }
+};
+
+export const assignManager = async (req, res) => {
+  try {
+    const { managerId } = req.body;
+    const employee = await User.findById(req.params.id);
+    if (!employee) return res.status(404).json({ message: "User not found" });
+    if (employee.role !== "employee") {
+      return res.status(400).json({ message: "Can only assign managers to employees" });
+    }
+
+    if (managerId) {
+      const manager = await User.findById(managerId);
+      if (!manager || manager.role !== "manager") {
+        return res.status(400).json({ message: "Invalid manager selected" });
+      }
+    }
+
+    employee.managerId = managerId || null;
+    await employee.save();
+
+    res.json({ message: "Manager assigned successfully", employee });
+  } catch (error) {
+    res.status(500).json({ message: "Assignment failed", error: error.message });
+  }
+};

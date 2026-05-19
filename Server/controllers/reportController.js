@@ -5,9 +5,31 @@ import { Parser } from "json2csv";
 export const exportAchievementReport = async (req, res) => {
     try {
         const goals = await Goal.find().populate("owner", "name email department role");
-        const fields = ["owner.name", "owner.email", "title", "target", "achievement", "progressScore", "status"];
+
+        const flat = goals.map(g => ({
+            employeeName: g.owner?.name || "",
+            employeeEmail: g.owner?.email || "",
+            department: g.owner?.department || "",
+            role: g.owner?.role || "",
+            goalTitle: g.title || "",
+            thrustArea: g.thrustArea || "",
+            uom: g.uom || "",
+            target: g.target ?? "",
+            achievement: g.achievement ?? "",
+            progressScore: g.progressScore ?? 0,
+            approvalStatus: g.approvalStatus || "",
+            progressStatus: g.progressStatus || "",
+        }));
+
+        const fields = [
+            "employeeName", "employeeEmail", "department", "role",
+            "goalTitle", "thrustArea", "uom",
+            "target", "achievement", "progressScore",
+            "approvalStatus", "progressStatus",
+        ];
+
         const parser = new Parser({ fields });
-        const csv = parser.parse(goals);
+        const csv = parser.parse(flat);
 
         res.header("Content-Type", "text/csv");
         res.attachment("achievement_report.csv");
@@ -21,13 +43,20 @@ export const exportAchievementReport = async (req, res) => {
 export const completionDashboard = async (req, res) => {
     try {
         const goals = await Goal.find().populate("owner", "name email role department");
+
         const dashboard = goals.map(g => ({
-            employee: g.owner.name,
-            department: g.owner.department,
-            status: g.status,
-            achievement: g.achievement,
-            progressScore: g.progressScore
+            employee:       g.owner?.name        || "Unknown",
+            department:     g.owner?.department  || "Unknown",
+            title:          g.title,
+            target:         g.target,
+            achievement:    g.achievement,
+            // Use progressStatus for check-in state
+            status:         g.progressStatus     || "Not Started",
+            approvalStatus: g.approvalStatus,
+            progressScore:  g.progressScore,
+            lockedAt:       g.lockedAt,
         }));
+
         res.json(dashboard);
     } catch (error) {
         res.status(500).json({ message: "Failed to fetch dashboard", error: error.message });

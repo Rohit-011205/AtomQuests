@@ -6,12 +6,12 @@ const goalSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    description: {
+    description:
         String
-    },
+    ,
     thrustArea: String,
     uom: String,
-    target: Number,
+    target: { type: mongoose.Schema.Types.Mixed, default: null },
     weightage: Number,
     status: { type: String, enum: ["pending", "approved", "completed"], default: "pending" },
     owner: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
@@ -19,6 +19,11 @@ const goalSchema = new mongoose.Schema({
 
     progressScore: { type: Number, default: 0 },
     managerComment: { type: String },
+    approvalStatus: {
+        type: String,
+        enum: ["draft", "pending", "approved"],
+        default: "draft"
+    },
     auditLogs: [{
         changedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
         field: String,
