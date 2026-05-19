@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { axiosInstance } from "../services/api.js";
 import logo2 from "./logo2.png";
+import { useNavigate } from "react-router-dom";
 
 export default function SignupPage() {
   const [form, setForm] = useState({ name: "", email: "", password: "", role: "employee", department: "" });
+  const navigate = useNavigate();
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -12,7 +14,7 @@ export default function SignupPage() {
     try {
       await axiosInstance.post("/auth/register", form);
       alert("Signup successful!");
-      window.location.href = "/login";
+      navigate("/login");
     } catch (err) {
       alert(err.response?.data?.message || "Signup failed");
     }
@@ -91,7 +93,7 @@ export default function SignupPage() {
 
           <div className="mt-6 pt-4 border-t border-slate-100 flex justify-center">
             <p className="text-[11px] text-slate-400">
-              Already a member? <span className="text-blue-600 font-bold cursor-pointer hover:underline" onClick={() => window.location.href = "/login"}>Log In</span>
+              Already a member? <span className="text-blue-600 font-bold cursor-pointer hover:underline" onClick={() => navigate("/login")}>Log In</span>
             </p>
           </div>
         </div>
