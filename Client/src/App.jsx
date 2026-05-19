@@ -3,6 +3,7 @@ import './App.css'
 import SignupPage from './pages/SignupPage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import { Route, Routes } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout.jsx';
 
 import EmployeeDashboard from './pages/employee/EmployeeDashboard.jsx';
@@ -29,6 +30,7 @@ function App() {
   return (
     <>
       <Routes>
+        <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
 
