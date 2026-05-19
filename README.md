@@ -35,6 +35,21 @@ A comprehensive MERN-stack web application designed for managing employee goals,
 
 ---
 
+### 👥 Demo Accounts & Test Credentials
+
+Use these pre-configured accounts to test the multi-tier Role-Based Access Control (RBAC) and workflows instantly:
+
+| Role | Email | Password | Department | Core Demo Flow to Test |
+| :--- | :--- | :--- | :--- | :--- |
+| 🛡️ **Admin** | `admin@test.com` | `admin123` | HR | View global audit logs & unlock locked goals for rework. |
+| 💼 **Manager** | `manager@test.com` | `manager123` | Engineering | Review, add feedback comments, and **Approve/Lock** employee goals. |
+| 👤 **Employee 1** | `employee1@test.com` | `emp123` | Engineering | Submit a batch of goals (Test the 100% weightage rule) & log quarterly progress. |
+| 👤 **Employee 2** | `employee2@test.com` | `emp123` | Engineering | Test multi-user isolation on the Manager/Admin dashboard views. |
+
+> ⚠️ **Note for Judges:** To test the full workflow loop, log in as **Employee 1** to submit goals, log in as **Manager** to approve and lock them, and use **Admin** if you need to override the lock state.
+
+---
+
 ## 🧠 Data Models
 
 ### User Schema
